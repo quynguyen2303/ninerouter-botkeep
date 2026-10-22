@@ -1,0 +1,1 @@
+{"gateway":"http://127.0.0.1:20128","key_name":"software-factory","limits":{"max_build_iterations":3,"max_tokens_per_call":4000,"request_timeout":120},"models":{"builder":"cf/@cf/qwen/qwen2.5-coder-32b-instruct","planner":"cf/@cf/meta/llama-3.3-70b-instruct-fp8-fast","reviewer":"gemini/gemini-3-flash-preview","writer":"gemini/gemini-3-flash-preview"}}

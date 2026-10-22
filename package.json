@@ -1,11 +1,1 @@
-{
-  "name": "ninerouter-botkeep",
-  "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "9router": "0.5.99"
-  },
-  "scripts": {
-    "start": "9router --no-browser --skip-update -H 0.0.0.0 -p $SERVER_PORT"
-  }
-}
+{"dependencies":{"9router":"0.5.99"},"name":"aos-server","private":true,"scripts":{"start":"node server.js"},"version":"1.0.0"}
