@@ -79,6 +79,134 @@ startChild('dashboard', process.execPath, [path.join(__dirname, 'dashboard.js')]
   DASH_PORT: String(DASH_PORT),
 });
 
+/* ---------------- Cloudflare quick-tunnel TEST ----------------
+ * Enabled when TUNNEL_TEST=1 or tunnel-test.json says {"enabled": true}.
+ * Uses a free trycloudflare.com quick tunnel pointing at this proxy,
+ * captures the public URL, and exposes it at /__tunnel. The tunnel stops
+ * itself after 30 minutes; it is a connectivity test, not production
+ * hosting. If cloudflared is missing it is downloaded once into bin/.
+ * If any of this fails, the server keeps running without the tunnel. */
+const fs = require('fs');
+const https = require('https');
+const TUNNEL_TEST_MINUTES = 30;
+let tunnelUrl = null;
+let tunnelExpiresAt = null;
+
+function tunnelTestEnabled() {
+  if (process.env.TUNNEL_TEST === '1') return true;
+  try {
+    const cfg = JSON.parse(
+      fs.readFileSync(path.join(__dirname, 'tunnel-test.json'), 'utf8')
+    );
+    return cfg.enabled === true;
+  } catch {
+    return false;
+  }
+}
+
+function downloadFile(url, dest, redirectsLeft, done) {
+  https
+    .get(url, (res) => {
+      if (
+        res.statusCode >= 300 &&
+        res.statusCode < 400 &&
+        res.headers.location &&
+        redirectsLeft > 0
+      ) {
+        res.resume();
+        downloadFile(res.headers.location, dest, redirectsLeft - 1, done);
+        return;
+      }
+      if (res.statusCode !== 200) {
+        res.resume();
+        done(new Error(`download failed: HTTP ${res.statusCode}`));
+        return;
+      }
+      const out = fs.createWriteStream(dest);
+      res.pipe(out);
+      out.on('finish', () => out.close(() => done(null)));
+      out.on('error', done);
+    })
+    .on('error', done);
+}
+
+function ensureCloudflared(done) {
+  const bin = path.join(__dirname, 'bin', 'cloudflared');
+  if (fs.existsSync(bin)) {
+    done(null, bin);
+    return;
+  }
+  fs.mkdirSync(path.dirname(bin), { recursive: true });
+  const tmp = `${bin}.download`;
+  console.log('[aos] downloading cloudflared for the tunnel test...');
+  downloadFile(
+    'https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64',
+    tmp,
+    5,
+    (err) => {
+      if (err) {
+        done(err);
+        return;
+      }
+      fs.renameSync(tmp, bin);
+      fs.chmodSync(bin, 0o755);
+      console.log('[aos] cloudflared downloaded');
+      done(null, bin);
+    }
+  );
+}
+
+if (tunnelTestEnabled()) {
+  ensureCloudflared((dlErr, cfBin) => {
+    if (dlErr) {
+      console.error(`[aos] cloudflared unavailable: ${dlErr.message}; continuing without tunnel`);
+      return;
+    }
+    startTunnel(cfBin);
+  });
+}
+
+function startTunnel(cfBin) {
+  try {
+    const cf = spawn(
+      cfBin,
+      ['tunnel', '--no-autoupdate', '--url', `http://127.0.0.1:${PORT}`],
+      { stdio: ['ignore', 'pipe', 'pipe'] }
+    );
+    children.push(cf);
+    const onData = (buf) => {
+      const text = buf.toString();
+      process.stderr.write(`[cloudflared] ${text}`);
+      const match = text.match(/https:\/\/(?!api\.)[a-z0-9-]+\.trycloudflare\.com/);
+      if (match && !tunnelUrl) {
+        tunnelUrl = match[0];
+        tunnelExpiresAt = new Date(Date.now() + TUNNEL_TEST_MINUTES * 60 * 1000).toISOString();
+        console.log(`[aos] TUNNEL TEST live: ${tunnelUrl} (auto-stops at ${tunnelExpiresAt})`);
+      }
+    };
+    cf.stdout.on('data', onData);
+    cf.stderr.on('data', onData);
+    cf.on('error', (err) => {
+      console.error(`[aos] cloudflared failed to start: ${err.message}; continuing without tunnel`);
+    });
+    cf.on('exit', (code, signal) => {
+      console.log(`[aos] cloudflared exited (code=${code}, signal=${signal}); tunnel closed`);
+      tunnelUrl = null;
+      tunnelExpiresAt = null;
+    });
+    setTimeout(() => {
+      console.log('[aos] TUNNEL TEST window over; stopping cloudflared');
+      try {
+        cf.kill('SIGTERM');
+      } catch {
+        /* already gone */
+      }
+    }, TUNNEL_TEST_MINUTES * 60 * 1000);
+  } catch (err) {
+    console.error(`[aos] could not spawn cloudflared: ${err.message}; continuing without tunnel`);
+  }
+}
+
 /* ---------------- routing ---------------- */
 
 // Returns { port, path } for a raw request target (path + optional query).
@@ -96,6 +224,13 @@ function route(rawUrl) {
 /* ---------------- HTTP proxy ---------------- */
 
 const proxy = http.createServer((req, res) => {
+  if (req.url === '/__tunnel' || req.url.startsWith('/__tunnel?')) {
+    res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+    res.end(
+      JSON.stringify({ tunnel_url: tunnelUrl, expires_at: tunnelExpiresAt }) + '\n'
+    );
+    return;
+  }
   const { port, path: upPath } = route(req.url);
   const headers = { ...req.headers, host: `${UPSTREAM_HOST}:${port}` };
   const upReq = http.request(
