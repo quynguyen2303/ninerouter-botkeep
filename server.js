@@ -223,6 +223,32 @@ function route(rawUrl) {
 
 /* ---------------- HTTP proxy ---------------- */
 
+/* Headers that reveal the original (remote) client. If these reach
+ * 9router it classifies the request as remote and refuses the default
+ * password ("Default password must be changed before remote access").
+ * The proxy itself connects from loopback, so stripping these makes
+ * dashboard requests look local to 9router and lets the owner set the
+ * first real password through the normal login flow. */
+const FORWARDING_HEADERS = [
+  'x-forwarded-for',
+  'x-forwarded-host',
+  'x-forwarded-proto',
+  'x-forwarded-port',
+  'x-real-ip',
+  'forwarded',
+  'cf-connecting-ip',
+  'cf-ipcountry',
+  'cf-ray',
+  'cf-visitor',
+  'true-client-ip',
+];
+
+function stripForwardingHeaders(headers) {
+  const out = { ...headers };
+  for (const name of FORWARDING_HEADERS) delete out[name];
+  return out;
+}
+
 const proxy = http.createServer((req, res) => {
   if (req.url === '/__tunnel' || req.url.startsWith('/__tunnel?')) {
     res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
@@ -232,7 +258,10 @@ const proxy = http.createServer((req, res) => {
     return;
   }
   const { port, path: upPath } = route(req.url);
-  const headers = { ...req.headers, host: `${UPSTREAM_HOST}:${port}` };
+  const headers = {
+    ...stripForwardingHeaders(req.headers),
+    host: `${UPSTREAM_HOST}:${port}`,
+  };
   const upReq = http.request(
     { host: UPSTREAM_HOST, port, method: req.method, path: upPath, headers },
     (upRes) => {
@@ -256,10 +285,14 @@ const proxy = http.createServer((req, res) => {
 proxy.on('upgrade', (req, socket, head) => {
   const { port, path: upPath } = route(req.url);
   const upstream = net.connect(port, UPSTREAM_HOST, () => {
-    const rawHeaders = req.rawHeaders.slice();
-    for (let i = 0; i < rawHeaders.length; i += 2) {
-      if (rawHeaders[i].toLowerCase() === 'host') {
-        rawHeaders[i + 1] = `${UPSTREAM_HOST}:${port}`;
+    const rawHeaders = [];
+    for (let i = 0; i < req.rawHeaders.length; i += 2) {
+      const name = req.rawHeaders[i].toLowerCase();
+      if (FORWARDING_HEADERS.includes(name)) continue;
+      if (name === 'host') {
+        rawHeaders.push(req.rawHeaders[i], `${UPSTREAM_HOST}:${port}`);
+      } else {
+        rawHeaders.push(req.rawHeaders[i], req.rawHeaders[i + 1]);
       }
     }
     let raw = `${req.method} ${upPath} HTTP/${req.httpVersion}\r\n`;
