@@ -35,9 +35,9 @@ node_modules/   9router (installed by npm)
   OpenAI-compatible API (`/v1/models`, `/v1/chat/completions`, …) and
   WebSocket `upgrade` requests (proxied as a raw socket pipe).
 
-Note: dashboard pages link to absolute paths (`/job/<id>`, `/`) exactly as
-the original Flask app did — those links resolve against the proxy root
-(9router), not `/factory`. Use the `/factory/...` URLs directly.
+Note: dashboard links are prefixed with `/factory` (via `DASH_BASE`, default
+`/factory`) so job pages resolve through the proxy. Standalone dashboard
+serving uses `DASH_BASE=''` for root-relative links.
 
 ## Lifecycle
 

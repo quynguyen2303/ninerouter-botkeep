@@ -1,0 +1,127 @@
+{"id": "03653a26", "ts": 1792295621.0300703, "job": "e595e60f", "type": "job.created", "actor": "human", "data": {"name": "evalcraft"}}
+{"id": "5e6a7174", "ts": 1792295625.1141198, "job": "e595e60f", "type": "git.branch", "actor": "orchestrator", "data": {"branch": "job/e595e60f"}}
+{"id": "8f87b8d2", "ts": 1792295625.1143641, "job": "e595e60f", "type": "job.started", "actor": "orchestrator", "data": {}}
+{"id": "a7ef505d", "ts": 1792295625.1185944, "job": "e595e60f", "type": "agent.called", "actor": "commander", "data": {"role": "planner", "model": "cf/@cf/meta/llama-3.3-70b-instruct-fp8-fast", "prompt_chars": 2187}}
+{"id": "27a2b193", "ts": 1792295626.4840646, "job": "e595e60f", "type": "agent.replied", "actor": "commander", "data": {"role": "planner", "model": "cf/@cf/meta/llama-3.3-70b-instruct-fp8-fast", "response_chars": 1}}
+{"id": "2f03d79b", "ts": 1792295626.484406, "job": "e595e60f", "type": "spec.scored", "actor": "commander", "data": {"score": 5}}
+{"id": "ff935cd8", "ts": 1792295626.4844801, "job": "e595e60f", "type": "plan.started", "actor": "commander", "data": {}}
+{"id": "08dc4fa8", "ts": 1792295626.4845312, "job": "e595e60f", "type": "agent.called", "actor": "commander", "data": {"role": "planner", "model": "cf/@cf/meta/llama-3.3-70b-instruct-fp8-fast", "prompt_chars": 2416}}
+{"id": "330fb34f", "ts": 1792295634.542678, "job": "e595e60f", "type": "agent.replied", "actor": "commander", "data": {"role": "planner", "model": "cf/@cf/meta/llama-3.3-70b-instruct-fp8-fast", "response_chars": 2336}}
+{"id": "edd7e30c", "ts": 1792295634.5432987, "job": "e595e60f", "type": "task.created", "actor": "commander", "data": {"task": "t1", "title": "Create basic HTML structure"}}
+{"id": "47658024", "ts": 1792295634.5433912, "job": "e595e60f", "type": "task.created", "actor": "commander", "data": {"task": "t2", "title": "Implement dark mode toggle and localStorage persistence"}}
+{"id": "057c0e2c", "ts": 1792295634.5434446, "job": "e595e60f", "type": "task.created", "actor": "commander", "data": {"task": "t3", "title": "Build rubric builder and output scorer components"}}
+{"id": "7d017109", "ts": 1792295634.543489, "job": "e595e60f", "type": "task.created", "actor": "commander", "data": {"task": "t4", "title": "Implement practice mode and history components"}}
+{"id": "6d1e674a", "ts": 1792295634.5435271, "job": "e595e60f", "type": "task.created", "actor": "commander", "data": {"task": "t5", "title": "Add mobile responsiveness and styling"}}
+{"id": "332d5172", "ts": 1792295634.5436904, "job": "e595e60f", "type": "task.created", "actor": "commander", "data": {"task": "t6", "title": "Test and refine the app"}}
+{"id": "c9def23b", "ts": 1792295634.544574, "job": "e595e60f", "type": "plan.proposed", "actor": "commander", "data": {"tasks": 6}}
+{"id": "c0966d2f", "ts": 1792295634.5658212, "job": "e595e60f", "type": "git.commit", "actor": "commander", "data": {"sha": "35d4e34", "message": "plan: 6 tasks"}}
+{"id": "7002e8c8", "ts": 1792295634.5659862, "job": "e595e60f", "type": "plan.approved", "actor": "human", "data": {"mode": "auto"}}
+{"id": "36ebe370", "ts": 1792295634.5664744, "job": "e595e60f", "type": "task.claimed", "actor": "vanguard", "data": {"task": "t1"}}
+{"id": "11e9d3f8", "ts": 1792295634.5665464, "job": "e595e60f", "type": "agent.called", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 288}}
+{"id": "ecb22f23", "ts": 1792295641.170937, "job": "e595e60f", "type": "agent.replied", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "response_chars": 4802}}
+{"id": "c666fefb", "ts": 1792295641.1718981, "job": "e595e60f", "type": "file.written", "actor": "vanguard", "data": {"file": "index.html", "chars": 4802, "task": "t1"}}
+{"id": "11257dae", "ts": 1792295641.1725483, "job": "e595e60f", "type": "task.completed", "actor": "vanguard", "data": {"task": "t1", "note": ""}}
+{"id": "04989b86", "ts": 1792295641.2410362, "job": "e595e60f", "type": "git.commit", "actor": "vanguard", "data": {"sha": "46329a4", "message": "build: Create basic HTML structure"}}
+{"id": "86e9f79d", "ts": 1792295641.2424707, "job": "e595e60f", "type": "task.claimed", "actor": "vanguard", "data": {"task": "t2"}}
+{"id": "a8012dd0", "ts": 1792295641.2427628, "job": "e595e60f", "type": "agent.called", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 232}}
+{"id": "b881563b", "ts": 1792295648.1025078, "job": "e595e60f", "type": "agent.replied", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "response_chars": 2222}}
+{"id": "927e6d3e", "ts": 1792295648.102837, "job": "e595e60f", "type": "file.written", "actor": "vanguard", "data": {"file": "index.html", "chars": 2222, "task": "t2"}}
+{"id": "463ae915", "ts": 1792295648.1033082, "job": "e595e60f", "type": "task.completed", "actor": "vanguard", "data": {"task": "t2", "note": ""}}
+{"id": "0e6cda77", "ts": 1792295648.1498024, "job": "e595e60f", "type": "git.commit", "actor": "vanguard", "data": {"sha": "f380073", "message": "build: Implement dark mode toggle and localStorage persistence"}}
+{"id": "cc17228a", "ts": 1792295648.1506824, "job": "e595e60f", "type": "task.claimed", "actor": "vanguard", "data": {"task": "t3"}}
+{"id": "7c1f7ce4", "ts": 1792295648.1507986, "job": "e595e60f", "type": "agent.called", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 365}}
+{"id": "fbd42e45", "ts": 1792295661.9965398, "job": "e595e60f", "type": "agent.replied", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "response_chars": 9225}}
+{"id": "69286640", "ts": 1792295661.9973156, "job": "e595e60f", "type": "file.written", "actor": "vanguard", "data": {"file": "index.html", "chars": 9225, "task": "t3"}}
+{"id": "f8ca09f9", "ts": 1792295661.9979095, "job": "e595e60f", "type": "task.completed", "actor": "vanguard", "data": {"task": "t3", "note": ""}}
+{"id": "2e0856f3", "ts": 1792295662.0272226, "job": "e595e60f", "type": "git.commit", "actor": "vanguard", "data": {"sha": "f70400f", "message": "build: Build rubric builder and output scorer components"}}
+{"id": "34dac1f9", "ts": 1792295662.02794, "job": "e595e60f", "type": "task.claimed", "actor": "vanguard", "data": {"task": "t4"}}
+{"id": "d8e47ada", "ts": 1792295662.0280595, "job": "e595e60f", "type": "agent.called", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 349}}
+{"id": "2344dfe0", "ts": 1792295677.3986855, "job": "e595e60f", "type": "agent.replied", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "response_chars": 4276}}
+{"id": "e2699db6", "ts": 1792295677.3992512, "job": "e595e60f", "type": "file.written", "actor": "vanguard", "data": {"file": "index.html", "chars": 4276, "task": "t4"}}
+{"id": "3c49789e", "ts": 1792295677.4002821, "job": "e595e60f", "type": "task.completed", "actor": "vanguard", "data": {"task": "t4", "note": ""}}
+{"id": "cf56cd78", "ts": 1792295677.4353976, "job": "e595e60f", "type": "git.commit", "actor": "vanguard", "data": {"sha": "25d1203", "message": "build: Implement practice mode and history components"}}
+{"id": "56649dd6", "ts": 1792295677.435991, "job": "e595e60f", "type": "task.claimed", "actor": "vanguard", "data": {"task": "t5"}}
+{"id": "9d0d00af", "ts": 1792295677.4360785, "job": "e595e60f", "type": "agent.called", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 252}}
+{"id": "977b1613", "ts": 1792295688.5776272, "job": "e595e60f", "type": "agent.replied", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "response_chars": 6061}}
+{"id": "39c909f1", "ts": 1792295688.5781748, "job": "e595e60f", "type": "file.written", "actor": "vanguard", "data": {"file": "index.html", "chars": 6061, "task": "t5"}}
+{"id": "9d90a0d8", "ts": 1792295688.5788486, "job": "e595e60f", "type": "task.completed", "actor": "vanguard", "data": {"task": "t5", "note": ""}}
+{"id": "7ce26f62", "ts": 1792295688.6476102, "job": "e595e60f", "type": "git.commit", "actor": "vanguard", "data": {"sha": "2117f35", "message": "build: Add mobile responsiveness and styling"}}
+{"id": "f59f3e33", "ts": 1792295688.6484458, "job": "e595e60f", "type": "task.claimed", "actor": "vanguard", "data": {"task": "t6"}}
+{"id": "559b5b64", "ts": 1792295688.6485372, "job": "e595e60f", "type": "agent.called", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 201}}
+{"id": "22789a2f", "ts": 1792295703.6289587, "job": "e595e60f", "type": "agent.replied", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "response_chars": 11230}}
+{"id": "8f03a128", "ts": 1792295703.629789, "job": "e595e60f", "type": "file.written", "actor": "vanguard", "data": {"file": "index.html", "chars": 11230, "task": "t6"}}
+{"id": "92e97a5f", "ts": 1792295703.6304758, "job": "e595e60f", "type": "task.completed", "actor": "vanguard", "data": {"task": "t6", "note": ""}}
+{"id": "aeeb1514", "ts": 1792295703.6498919, "job": "e595e60f", "type": "git.commit", "actor": "vanguard", "data": {"sha": "4680e7e", "message": "build: Test and refine the app"}}
+{"id": "68ce3a7a", "ts": 1792295703.650177, "job": "e595e60f", "type": "verify.started", "actor": "orchestrator", "data": {}}
+{"id": "438a07d1", "ts": 1792295703.674805, "job": "e595e60f", "type": "git.commit", "actor": "orchestrator", "data": {"sha": "9a17f4b", "message": "verify"}}
+{"id": "c771311c", "ts": 1792295703.6751347, "job": "e595e60f", "type": "review.requested", "actor": "orchestrator", "data": {}}
+{"id": "c9a9bbff", "ts": 1792295703.6753423, "job": "e595e60f", "type": "agent.called", "actor": "captain", "data": {"role": "reviewer", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 13473}}
+{"id": "3873b7fe", "ts": 1792295712.3937776, "job": "e595e60f", "type": "agent.replied", "actor": "captain", "data": {"role": "reviewer", "model": "gemini/gemini-3-flash-preview", "response_chars": 1151}}
+{"id": "dd2d7b42", "ts": 1792295712.394757, "job": "e595e60f", "type": "review.verdict", "actor": "captain", "data": {"verdict": "FAIL", "review": "### Code Review: EvalCraft \u2014 AI Output Evaluator\n\n**1) Does it meet the spec?**\n**No.** The provided code is for a completely different application called \"TaskMaster\" (a To-Do list). It fails every requirement of the EvalCraft spec:\n*   **Wrong App:** It manages tasks, not AI output evaluations.\n*   **Wrong Tech Stack:** It uses React and `lucide-react` imports, which require a build pipeline. The spec explicitly demands a **single self-contained HTML file** with **no dependencies** that can be opened directly in a browser.\n*   **Missing Features:** There is no Rubric Builder, Output Scorer, Practice Mode, or History tab.\n*   **Incomplete:** The code provided is truncated and ends abruptly in the middle of a form.\n\n**2) Bugs found:**\n*   **Critical:** The code is a \"hallucinated\" response\u2014it provides a generic task manager template instead of the requested tool.\n*   **Environment Error:** The code uses `import` statements and JSX, which will throw syntax errors if opened directly in a browser as requested.\n*   **Logic:** None of the required weighted average calculations or practice sample data are present.\n\n**3) Verdict:**\n**FAIL**"}}
+{"id": "54af2ebc", "ts": 1792295712.3959882, "job": "e595e60f", "type": "review.quality_logged", "actor": "orchestrator", "data": {"agree": true}}
+{"id": "578a65b8", "ts": 1792295712.4205775, "job": "e595e60f", "type": "git.commit", "actor": "captain", "data": {"sha": "852ecf6", "message": "review: FAIL"}}
+{"id": "23e401d2", "ts": 1792295712.4207757, "job": "e595e60f", "type": "fix.started", "actor": "vanguard", "data": {}}
+{"id": "819d81f0", "ts": 1792295712.4209282, "job": "e595e60f", "type": "agent.called", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 1389}}
+{"id": "ca0841b5", "ts": 1792295715.314272, "job": "e595e60f", "type": "agent.replied", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "response_chars": 3}}
+{"id": "0162ba11", "ts": 1792295715.3144197, "job": "e595e60f", "type": "fix.scope", "actor": "vanguard", "data": {"incremental": false, "files": ["index.html"]}}
+{"id": "1f0bc108", "ts": 1792295715.3146536, "job": "e595e60f", "type": "agent.called", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 12573}}
+{"id": "94f3edae", "ts": 1792295730.981642, "job": "e595e60f", "type": "agent.replied", "actor": "vanguard", "data": {"role": "builder", "model": "gemini/gemini-3-flash-preview", "response_chars": 9599}}
+{"id": "6b4aa219", "ts": 1792295730.982315, "job": "e595e60f", "type": "fix.completed", "actor": "vanguard", "data": {"files": 0, "incremental": false}}
+{"id": "4cc5d95b", "ts": 1792295731.0005755, "job": "e595e60f", "type": "git.commit", "actor": "vanguard", "data": {"sha": "304f2fe", "message": "fix: review feedback applied"}}
+{"id": "dc131019", "ts": 1792295731.0007722, "job": "e595e60f", "type": "verify.started", "actor": "orchestrator", "data": {}}
+{"id": "b4c7a3c1", "ts": 1792295731.0153775, "job": "e595e60f", "type": "git.commit", "actor": "orchestrator", "data": {"sha": "62fa8ef", "message": "verify"}}
+{"id": "97a1972f", "ts": 1792295731.015601, "job": "e595e60f", "type": "review.requested", "actor": "orchestrator", "data": {}}
+{"id": "6b4f48ac", "ts": 1792295731.0158446, "job": "e595e60f", "type": "agent.called", "actor": "captain", "data": {"role": "reviewer", "model": "gemini/gemini-3-flash-preview", "prompt_chars": 13473}}
+{"id": "29a2846c", "ts": 1792295737.0351565, "job": "e595e60f", "type": "agent.replied", "actor": "captain", "data": {"role": "reviewer", "model": "gemini/gemini-3-flash-preview", "response_chars": 1264}}
+{"id": "19d8ba37", "ts": 1792295737.0352948, "job": "e595e60f", "type": "review.verdict", "actor": "captain", "data": {"verdict": "FAIL", "review": "### Code Review\n\n**1) Does it meet the spec?**\n**No.** The provided code is for a completely different application (\"TaskMaster\" - a task management app) instead of the requested \"EvalCraft\" (AI Output Evaluator). It fails almost every requirement:\n*   **Wrong App:** It manages tasks/todos instead of AI rubrics and evaluations.\n*   **Wrong Format:** It uses React JSX and ES imports (`lucide-react`, `react`) which cannot run \"directly in browser\" without a build step or CDN configuration. The spec required a single HTML file with `<style>` and `<script>` tags.\n*   **Missing Features:** There is no Rubric builder, Output scorer, Practice mode, or History tab as defined in the spec.\n*   **Missing Dark Mode:** No dark mode toggle or logic is implemented.\n\n**2) Bugs found:**\n*   **Incomplete Code:** The file ends abruptly in the middle of a `<form>` element.\n*   **Environment Error:** Attempting to open this code in a browser will result in a syntax error because browsers do not natively support JSX or bare module imports without a bundler or specific `<script type=\"module\">` setup.\n*   **Logic Mismatch:** The `localStorage` key used is `task_master_data` instead of the specified `evalcraft_rubrics` and `evalcraft_history`.\n\n**3) Verdict:**\n**FAIL**"}}
+{"id": "a75e0e6b", "ts": 1792295737.0360444, "job": "e595e60f", "type": "review.quality_logged", "actor": "orchestrator", "data": {"agree": true}}
+{"id": "33a5ed35", "ts": 1792295737.0622997, "job": "e595e60f", "type": "git.commit", "actor": "captain", "data": {"sha": "a4b0dad", "message": "review: FAIL"}}
+{"id": "2b536e32", "ts": 1792295737.062473, "job": "e595e60f", "type": "job.delivered", "actor": "orchestrator", "data": {"review": "FAIL"}}
+{"id": "7ec6db1e", "ts": 1792295737.0903065, "job": "e595e60f", "type": "git.commit", "actor": "orchestrator", "data": {"sha": "a0b3018", "message": "deliver: FAIL"}}
+{"id": "96f38589", "ts": 1792374583.3897328, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "a5b9df04", "ts": 1792460993.4482312, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "844fa8b3", "ts": 1792547390.3138187, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "89508e5a", "ts": 1792595223.484754, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "90a112ac", "ts": 1792633801.0947385, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "1a7fa0eb", "ts": 1792720182.738433, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "551d4341", "ts": 1792720194.5184908, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "1d6f5095", "ts": 1792806577.1162384, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "d62b0112", "ts": 1792892979.4996517, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "fa6b3f1e", "ts": 1792892992.7137768, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "524562f4", "ts": 1792979397.1645122, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "26ddc606", "ts": 1793065779.0366464, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "8a0bc524", "ts": 1793152179.0945814, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "73014bae", "ts": 1793238582.1338184, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "213df558", "ts": 1793238601.3664422, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "207d88ba", "ts": 1793324986.4544003, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "01bae927", "ts": 1793325014.806082, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "4b8ef42f", "ts": 1793411379.608344, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "525ab044", "ts": 1793411382.3180113, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "7e4d9adb", "ts": 1793497788.1597352, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "e77699a2", "ts": 1793497824.507468, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "d1baba72", "ts": 1793584178.2374387, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "be21c043", "ts": 1793584192.526863, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "594f703a", "ts": 1793670583.7912686, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "e15b4b0a", "ts": 1793670592.5982082, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "890d3bc0", "ts": 1793756978.4983997, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "e2ca9989", "ts": 1793756988.597345, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "76801655", "ts": 1793843386.7778053, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "8733c047", "ts": 1793843400.4526162, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "0046f2d8", "ts": 1793929796.6454022, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "d3423e64", "ts": 1793929800.7567685, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "ff027702", "ts": 1794016241.1844656, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "978898be", "ts": 1794016244.5243332, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "9122ebb5", "ts": 1794102635.7949274, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "1c52f828", "ts": 1794102657.5173857, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "7cbc5f20", "ts": 1794189047.1408625, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "8bde50e2", "ts": 1794275445.5862975, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "3e3e1fc8", "ts": 1794275448.782082, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "ab9c5587", "ts": 1794361840.6531868, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "baae1d74", "ts": 1794448240.1365774, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "584e69e2", "ts": 1794534647.7145972, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "0c173b5b", "ts": 1794534652.4283094, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "85a787df", "ts": 1794621043.1574948, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "8d34efd7", "ts": 1794621065.887132, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "00c4161b", "ts": 1794707443.6071475, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "0679c29a", "ts": 1794793857.600004, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}
+{"id": "834e8f04", "ts": 1794793863.362373, "job": "e595e60f", "type": "health.issues", "actor": "monitor", "data": {"issues": ["index.html: not valid HTML"]}}

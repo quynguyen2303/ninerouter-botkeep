@@ -21,6 +21,9 @@ const path = require('path');
 const JOBS_DIR = process.env.JOBS_DIR || path.join(__dirname, 'jobs');
 const PORT = parseInt(process.env.DASH_PORT || '12013', 10);
 const HOST = '127.0.0.1';
+// URL prefix the dashboard is served under. Behind the combined proxy it is
+// /factory; standalone (Flask-compatible) serving uses DASH_BASE=''.
+const BASE = (process.env.DASH_BASE || '/factory').replace(/\/$/, '');
 
 /* ---------------- events.py port ---------------- */
 
@@ -54,7 +57,12 @@ function latest(jobId, type) {
 
 function summary(jobId) {
   const evs = readEvents(jobId);
-  if (!evs.length) return { status: 'unknown', events: 0 };
+  // A job dir with no events must still render (Flask 500ed here via a
+  // KeyError; the dashboard must not take the whole list down for one
+  // empty job).
+  if (!evs.length) {
+    return { status: 'unknown', events: 0, tasks_done: 0, tasks_total: 0, started: null, updated: null };
+  }
   const types = evs.map((e) => e.type);
   let status;
   if (types.includes('job.delivered')) status = 'delivered';
@@ -86,11 +94,10 @@ function jobIds() {
 function jobName(jid) {
   const nameEv = latest(jid, 'job.created');
   if (!nameEv) return jid;
-  // Python: name_ev["data"].get("name") -> the value, or None if key missing
-  if (nameEv.data === null || typeof nameEv.data !== 'object') {
-    throw new Error('AttributeError: data has no .get'); // Flask would 500
-  }
-  return 'name' in nameEv.data ? nameEv.data.name : null;
+  // Malformed or nameless created events fall back to the job id instead
+  // of taking the whole page down (Flask 500ed here).
+  if (nameEv.data === null || typeof nameEv.data !== 'object') return jid;
+  return 'name' in nameEv.data && nameEv.data.name ? nameEv.data.name : jid;
 }
 
 /* ---------------- Python-compatible formatting helpers ---------------- */
@@ -139,19 +146,13 @@ function renderIndex() {
     const s = summary(jid);
     jobs.push({ id: jid, name: jobName(jid), ...s });
   }
-  // Flask raises KeyError (-> 500) if a job has no events: summary() then
-  // lacks tasks_done/tasks_total and the row f-string dereferences them.
   const rows = jobs
-    .map((j) => {
-      if (!('tasks_done' in j) || !('tasks_total' in j)) {
-        throw new Error("KeyError: 'tasks_done'");
-      }
-      return (
-        `<tr><td><a href='/job/${j.id}'>${pyStr(j.name)}</a></td>` +
+    .map(
+      (j) =>
+        `<tr><td><a href='${BASE}/job/${j.id}'>${pyStr(j.name)}</a></td>` +
         `<td>${j.status}</td><td>${j.tasks_done}/${j.tasks_total}</td>` +
         `<td>${j.events}</td></tr>`
-      );
-    })
+    )
     .join('');
   return `<!doctype html><html><head><title>Attack on Software</title>
 <style>body{font-family:system-ui;max-width:900px;margin:40px auto;padding:0 20px;background:#0f1115;color:#e8e8e8}
@@ -178,7 +179,7 @@ function renderJob(jobId) {
 <style>body{font-family:monospace;max-width:1000px;margin:20px auto;padding:0 20px;
 background:#0f1115;color:#d8d8d8;font-size:13px}
 div{padding:3px 0;border-bottom:1px solid #222}a{color:#7cc4ff}</style>
-</head><body><a href='/'>← all jobs</a><h2>${jobId}</h2>${lines}</body></html>`;
+</head><body><a href='${BASE}/'>← all jobs</a><h2>${jobId}</h2>${lines}</body></html>`;
 }
 
 /* ---------------- HTTP plumbing ---------------- */
