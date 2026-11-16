@@ -23,6 +23,45 @@ const net = require('net');
 const path = require('path');
 const { spawn } = require('child_process');
 
+/* ---------------- .env loading (Botkeep) ----------------
+ * Botkeep delivers Environment values through a .env file in the
+ * project root that the application must load itself; the values do
+ * NOT arrive as real environment variables. 9router reads
+ * INITIAL_PASSWORD from process.env, so without this loader it never
+ * sees the value and keeps comparing logins against the default.
+ * Parse .env into process.env (never overwriting a real env var)
+ * BEFORE spawning children, so both children inherit the values.
+ * The log line below reports only whether INITIAL_PASSWORD is set;
+ * it never prints any value. */
+(function loadDotEnv() {
+  const fs = require('fs');
+  let text;
+  try {
+    text = fs.readFileSync(path.join(__dirname, '.env'), 'utf8');
+  } catch {
+    return; // no .env file: nothing to load
+  }
+  for (const rawLine of text.split('\n')) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith('#')) continue;
+    const body = line.startsWith('export ') ? line.slice(7).trim() : line;
+    const eq = body.indexOf('=');
+    if (eq <= 0) continue;
+    const key = body.slice(0, eq).trim();
+    let value = body.slice(eq + 1).trim();
+    if (
+      (value.startsWith('"') && value.endsWith('"') && value.length >= 2) ||
+      (value.startsWith("'") && value.endsWith("'") && value.length >= 2)
+    ) {
+      value = value.slice(1, -1);
+    }
+    if (key && !(key in process.env)) process.env[key] = value;
+  }
+  console.log(
+    `[aos] loaded .env file (INITIAL_PASSWORD ${process.env.INITIAL_PASSWORD ? 'set' : 'NOT set'})`
+  );
+})();
+
 const PORT = parseInt(process.env.SERVER_PORT || '20128', 10);
 const ROUTER_PORT = 12012;
 const DASH_PORT = 12013;
@@ -223,12 +262,13 @@ function route(rawUrl) {
 
 /* ---------------- HTTP proxy ---------------- */
 
-/* Headers that reveal the original (remote) client. If these reach
- * 9router it classifies the request as remote and refuses the default
- * password ("Default password must be changed before remote access").
- * The proxy itself connects from loopback, so stripping these makes
- * dashboard requests look local to 9router and lets the owner set the
- * first real password through the normal login flow. */
+/* Headers that reveal the original (remote) client. Stripping them
+ * keeps dashboard requests looking loopback-originated, but it does
+ * NOT make 9router treat a remote login as local: its local check
+ * also requires an internal peer token no proxy can forge, so the
+ * first password must come from INITIAL_PASSWORD (see .env loading
+ * above), not from this header strip. The strip is kept as harmless
+ * hygiene. */
 const FORWARDING_HEADERS = [
   'x-forwarded-for',
   'x-forwarded-host',
